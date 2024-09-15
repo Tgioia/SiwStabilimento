@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dettagli Stabilimento</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body>
+    <header>
+        <a href="/"><img src="/images/logo.png" alt="Gestione Stabilimenti Logo" class="logo"></a>
+        <h1>Gestione Stabilimenti</h1>
+        <nav>
+            <ul>
+                <li th:if="${#authentication.name != 'anonymousUser'}">
+                    <a th:href="@{/logout}">Logout</a>
+                </li>
+                <li th:unless="${#authentication.name != 'anonymousUser'}">
+                    <a th:href="@{/login}">Login</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <h2>Dettagli del Stabilimento</h2>
+    <div>
+        <p><strong>Nome Stabilimento:</strong> <span th:text="${stabilimento.nome}">Nome Stabilimento</span></p>
+        <p><strong>Indirizzo:</strong> <span th:text="${stabilimento.indirizzo}">Indirizzo Stabilimento</span></p>
+        <p><strong>Numero Totale Lettini:</strong> <span th:text="${stabilimento.numeroLettini}">100</span></p>
+        <p><strong>Numero Totale Ombrelloni:</strong> <span th:text="${stabilimento.numeroOmbrelloni}">50</span></p>
+       <!-- <p><strong>Proprietario:</strong> 
+            <span th:text="${stabilimento.proprietario.name} + ' ' + ${stabilimento.proprietario.surname}">
+                Nome Cognome Proprietario
+            </span>-->
+        </p>
+    </div>
+	<h3>Prossime Disponibilità</h3>
+	<table class="availability-table">
+	    <thead>
+	        <tr>
+	            <th>Data</th>
+	            <th>Lettini Disponibili</th>
+	            <th>Ombrelloni Disponibili</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        <tr th:each="disponibilita : ${stabilimento.disponibilitaPerGiorno}">
+	            <td th:text="${disponibilita.data}">01/01/2024</td>
+	            <td th:text="${disponibilita.lettiniDisponibili}">10</td>
+	            <td th:text="${disponibilita.ombrelloniDisponibili}">5</td>
+	        </tr>
+	    </tbody>
+	</table>
+
+
+    <a th:href="@{/stabilimenti}">Torna all'elenco stabilimenti</a>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Area Proprietario</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body>
+    <header>
+        <a href="/"><img src="/images/logo.png" alt="Gestione Stabilimenti Logo" class="logo"></a>
+        <h1>Area Proprietario</h1>
+        <nav>
+            <ul>
+                <li><a href="/owner/stabilimenti">I Miei Stabilimenti</a></li>
+                <li th:if="${#authentication.name != 'anonymousUser'}">
+                    <a th:href="@{/logout}">Logout</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div>
+        <h2>Benvenuto nella tua area personale</h2>
+        <p>Gestisci i tuoi stabilimenti e le prenotazioni.</p>
+    </div>
+</body>
+
+</html>

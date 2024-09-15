@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Gestione Prenotazioni Stabilimenti</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body>
+    <header>
+        <a href="/"><img src="/images/logo.png" alt="Gestione Stabilimenti Logo" class="logo"></a>
+        <h1>Gestione Prenotazioni Stabilimenti</h1>
+        <nav>
+            <ul>
+                <li><a href="/stabilimenti">Stabilimenti</a></li>
+                <li><a href="/prenotazioni">Le mie prenotazioni</a></li>
+                <li><a href="/prenotazione/new">Nuova Prenotazione</a></li>
+                <li th:if="${#authentication.name != 'anonymousUser'}">
+                    <a th:href="@{/logout}">Logout</a>
+                </li>
+                <li th:unless="${#authentication.name != 'anonymousUser'}">
+                    <a th:href="@{/login}">Login</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div>
+        <h2>Benvenuto</h2>
+        <p>Gestisci le prenotazioni e gli stabilimenti in modo semplice e veloce.</p>
+    </div>
+</body>
+
+</html>

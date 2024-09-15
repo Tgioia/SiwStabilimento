@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Nuova Prenotazione</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body>
+    <header>
+        <a href="/"><img src="/images/logo.png" alt="Gestione Prenotazioni Logo" class="logo"></a>
+        <h1>Nuova Prenotazione</h1>
+        <nav>
+            <ul>
+                <li th:if="${#authentication.name != 'anonymousUser'}">
+                    <a th:href="@{/logout}">Logout</a>
+                </li>
+                <li th:unless="${#authentication.name != 'anonymousUser'}">
+                    <a th:href="@{/login}">Login</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <h2>Inserisci i dettagli della nuova prenotazione</h2>
+	<form th:action="@{/prenotazione/new}" th:object="${prenotazione}" method="post">
+	    <div class="form-group">
+	        <label for="data">Data</label>
+	        <input type="date" class="form-control" id="data" th:field="*{data}" required>
+	    </div>
+	    <div class="form-group">
+	        <label for="stabilimento">Stabilimento</label>
+	        <select clas="form-control" id="stabilimento" th:field="*{stabilimento}" required>
+	            <option value="" disabled selected>Seleziona Stabilimento</option>
+	            <option th:each="stabilimento : ${stabilimenti}" th:value="${stabilimento.id}" th:text="${stabilimento.nome}"></option>
+	        </select>
+	
+	
+    <form th:action="@{/prenotazione/new}" th:object="${prenotazione}" method="post">
+        <label for="numeroOmbrelloni">Numero Ombrelloni:</label>
+        <input type="number" id="numeroOmbrelloni" th:field="*{numeroOmbrelloni}" min="0" required>
+
+        <label for="numeroLettini">Numero Lettini:</label>
+        <input type="number" id="numeroLettini" th:field="*{numeroLettini}" min="0" required>
+
+        <button type="submit">Prenota</button>
+    </form>
+</body>
+
+</html>

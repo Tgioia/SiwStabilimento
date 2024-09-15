@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SiwMovie - Registrazione conclusa</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body>
+    <header>
+        <a href="/"><img src="/images/logo.png" alt="Federazione Sportiva Logo" class="logo"></a>
+        <h1>Federazione Sportiva</h1>
+        <nav>
+            <ul>
+                <li th:if="${#authentication.name != 'anonymousUser'}">
+                    <a th:href="@{/logout}">Logout</a>
+                </li>
+                <li th:unless="${#authentication.name != 'anonymousUser'}">
+                    <a th:href="@{/login}">Login</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <h1>Congratulazioni ti sei registrato!</h1>
+    <div>
+        <span>Nome: </span>
+        <span th:text="${user.name}"></span>
+    </div>
+    <div>
+        <span>Cognome: </span>
+        <span th:text="${user.surname}"></span>
+    </div>
+    <div>
+        <span>Email: </span>
+        <span th:text="${user.email}"></span>
+    </div>
+    <div>
+        <a th:href="@{/login}" th:text="login">Effettua il Login</a>
+    </div>
+</body>
+
+</html>

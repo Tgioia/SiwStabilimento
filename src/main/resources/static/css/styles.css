@@ -1,0 +1,135 @@
+/* Stili generali per il sito */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+}
+
+header .logo {
+    max-width: 150px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 0.5rem;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+/* Stili per il form di registrazione Proprietario */
+form {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    max-width: 600px;
+    margin: 2rem auto;
+}
+
+form label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+form input, 
+form select, 
+form textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+form button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #555;
+}
+
+/* Stili per la tabella delle disponibilità */
+.availability-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.availability-table th, 
+.availability-table td {
+    padding: 0.75rem;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.availability-table thead {
+    background-color: #f4f4f4;
+}
+
+.availability-table th {
+    background-color: #333;
+    color: #fff;
+    font-weight: bold;
+}
+
+.availability-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.availability-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.availability-table td {
+    color: #333;
+}
+
+/* Stili per le pagine di successo e errore */
+.success-message, .error-message {
+    background-color: #fff;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    max-width: 600px;
+    margin: 2rem auto;
+    text-align: center;
+}
+
+.success-message {
+    border-color: #4CAF50;
+    color: #4CAF50;
+}
+
+.error-message {
+    border-color: #f44336;
+    color: #f44336;
+}

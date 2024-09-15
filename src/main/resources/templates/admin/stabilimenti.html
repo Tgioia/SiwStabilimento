@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Elenco Stabilimenti</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body>
+    <header>
+        <a href="/"><img src="/images/logo.png" alt="Gestione Stabilimenti Logo" class="logo"></a>
+        <h1>Gestione Stabilimenti</h1>
+        <nav>
+            <ul>
+                <li th:if="${#authentication.name != 'anonymousUser'}">
+                    <a th:href="@{/logout}">Logout</a>
+                </li>
+                <li th:unless="${#authentication.name != 'anonymousUser'}">
+                    <a th:href="@{/login}">Login</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <h2>Elenco Stabilimenti</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Indirizzo</th>
+                <th>Azioni</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="stabilimento : ${stabilimenti}">
+                <td th:text="${stabilimento.nome}">Nome</td>
+                <td th:text="${stabilimento.indirizzo}">Indirizzo</td>
+                <td>
+                    <a th:href="@{'/stabilimento/' + ${stabilimento.id}}">Dettagli</a>
+                </td>
+				
+            </tr>
+        </tbody>
+    </table>
+	<li><a href="/admin/formNewStabilimento">Crea Nuovo Stabilimento</a></li>
+</body>
+
+</html>

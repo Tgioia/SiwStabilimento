@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dettagli Prenotazione</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body>
+    <header>
+        <a href="/"><img src="/images/logo.png" alt="Gestione Stabilimenti Logo" class="logo"></a>
+        <h1>Gestione Stabilimenti</h1>
+        <nav>
+            <ul>
+                <li th:if="${#authentication.name != 'anonymousUser'}">
+                    <a th:href="@{/logout}">Logout</a>
+                </li>
+                <li th:unless="${#authentication.name != 'anonymousUser'}">
+                    <a th:href="@{/login}">Login</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <h2>Dettagli della Prenotazione</h2>
+    <div>
+        <p><strong>ID Prenotazione:</strong> <span th:text="${prenotazione.id}">12345</span></p>
+        <p><strong>Data:</strong> <span th:text="${prenotazione.data}">2024-09-14</span></p>
+        <p><strong>Numero Lettini:</strong> <span th:text="${prenotazione.numeroLettini}">2</span></p>
+        <p><strong>Numero Ombrelloni:</strong> <span th:text="${prenotazione.numeroOmbrelloni}">1</span></p>
+        <p><strong>Stabilimento:</strong> 
+            <a th:href="@{'/stabilimento/' + ${prenotazione.stabilimento.id}}">
+                <span th:text="${prenotazione.stabilimento.nome}">Stabilimento XYZ</span>
+            </a>
+        </p>
+    </div>
+
+    <a th:href="@{/prenotazioni}">Torna all'elenco prenotazioni</a>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registrazione Proprietario Riuscita</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+    <header>
+        <a href="/"><img src="/images/logo.png" alt="Logo Stabilimento" class="logo"></a>
+        <h1>Gestione Stabilimenti</h1>
+        <nav>
+            <ul>
+                <li th:if="${#authentication.name != 'anonymousUser'}">
+                    <a th:href="@{/logout}">Logout</a>
+                </li>
+                <li th:unless="${#authentication.name != 'anonymousUser'}">
+                    <a th:href="@{/login}">Login</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Registrazione del Proprietario Riuscita!</h2>
+        <div>
+            <p>Il proprietario <strong th:text="${proprietario.name} + ' ' + ${proprietario.surname}">Nome Cognome</strong> è stato registrato con successo.</p>
+            <p>Username: <span th:text="${credentials.username}">Username Proprietario</span></p>
+        </div>
+
+        <a href="/">Torna alla Dashboard</a>
+    </main>
+</body>
+</html>
