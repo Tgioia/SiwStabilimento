@@ -13,5 +13,6 @@ import it.uniroma3.siw.model.Stabilimento;
 public interface DisponibilitaRepository extends CrudRepository<Disponibilita, Long> {
 	@Query("SELECT d FROM Disponibilita d WHERE d.stabilimento = :stabilimento AND d.data = :data")
     List<Disponibilita> findByStabilimentoAndData(Stabilimento stabilimento, LocalDate data);
+	List<Disponibilita> findAllByOrderByDataAsc();
 }
 

@@ -1,13 +1,10 @@
 package it.uniroma3.siw.controller;
 
 import it.uniroma3.siw.model.Credentials;
-import it.uniroma3.siw.model.Lettino;
-import it.uniroma3.siw.model.Ombrellone;
+import it.uniroma3.siw.model.Disponibilita;
 import it.uniroma3.siw.model.Proprietario;
 import it.uniroma3.siw.model.Stabilimento;
 import it.uniroma3.siw.model.User;
-import it.uniroma3.siw.repository.LettinoRepository;
-import it.uniroma3.siw.repository.OmbrelloneRepository;
 import it.uniroma3.siw.repository.StabilimentoRepository;
 import it.uniroma3.siw.repository.UserRepository;
 import it.uniroma3.siw.service.CredentialsService;
@@ -15,6 +12,15 @@ import it.uniroma3.siw.service.DisponibilitaService;
 import it.uniroma3.siw.service.ProprietarioService;
 import it.uniroma3.siw.service.StabilimentoService;
 import it.uniroma3.siw.service.UserService;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Collections;
+import java.util.Comparator;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,11 +29,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.validation.Valid;
 
 @Controller
 public class StabilimentoController {
+	private static String UPLOAD_DIR = "src/main/resources/static/uploads/";
 
     @Autowired
     private StabilimentoService stabilimentoService;
@@ -40,11 +48,7 @@ public class StabilimentoController {
 
     @Autowired
 	private StabilimentoRepository stabilimentoRepository;
-    @Autowired
-	private LettinoRepository lettinoRepository;
-    @Autowired
-	private OmbrelloneRepository ombrelloneRepository;
-    
+
     @GetMapping(value="/stabilimenti")
     public String listStabilimenti(Model model) {
         model.addAttribute("stabilimenti", stabilimentoService.findAll());
@@ -58,7 +62,7 @@ public class StabilimentoController {
 
         Proprietario proprietario = credentials.getProprietario();
         model.addAttribute("stabilimenti", stabilimentoService.findAllByProprietario(proprietario));
-        return "stabilimenti";
+        return "/owner/stabilimenti";
     }
     @GetMapping("/admin/stabilimenti")
     public String listStabilimentiForAdmin(Model model) {
@@ -71,6 +75,13 @@ public class StabilimentoController {
     public String viewStabilimento(@PathVariable("id") Long id, Model model) {
         Stabilimento stabilimento = stabilimentoService.findById(id).get();
         if (stabilimento != null) {
+            
+            Collections.sort(stabilimento.getDisponibilitaPerGiorno(), new Comparator<Disponibilita>() {
+                @Override
+                public int compare(Disponibilita d1, Disponibilita d2) {
+                    return d1.getData().compareTo(d2.getData()); 
+                }
+            });
             model.addAttribute("stabilimento", stabilimento);
             return "stabilimento";
         }
@@ -87,8 +98,26 @@ public class StabilimentoController {
     
     @PostMapping("/admin/stabilimento")
     public String newStabilimento(@Valid @ModelAttribute("stabilimento") Stabilimento stabilimento, 
-                                  BindingResult bindingResult, Model model) {
+                                  BindingResult bindingResult,
+                                  @RequestParam("immagine") MultipartFile file,
+                                  Model model) {
         if (!bindingResult.hasErrors()) {
+        	//try,catch
+        	if(!file.isEmpty()) {
+        		try {
+        			String uploadDir = UPLOAD_DIR;
+        			File directory = new File(uploadDir);
+        			if(!directory.exists()) directory.mkdirs();
+        			byte[] bytes = file.getBytes();
+        			Path path= Paths.get(UPLOAD_DIR + file.getOriginalFilename());
+        			Files.write(path, bytes);
+        			stabilimento.setImagePath(UPLOAD_DIR + file.getOriginalFilename());
+        			
+        		} catch(IOException e) {
+        			e.printStackTrace();
+        		}
+        	}
+        	
         	System.out.print("1");
             this.stabilimentoRepository.save(stabilimento);
         	System.out.print("2");
@@ -108,4 +137,22 @@ public class StabilimentoController {
         
         return "admin/formNewStabilimento.html";
     }
+    
+    @GetMapping("/owner/formUpdateStabilimento/{id}")
+    public String formUpdateStabilimento(@PathVariable("id") Long id, Model model) {
+        Stabilimento stabilimento = stabilimentoRepository.findById(id).get();
+        model.addAttribute("stabilimento", stabilimento);
+        return "owner/formUpdateStabilimento.html";
+    }
+    @PostMapping("/owner/stabilimento/update")
+    public String updateStabilimento(@Valid @ModelAttribute("stabilimento") Stabilimento stabilimento, BindingResult bindingResult, Model model) {
+        if (!bindingResult.hasErrors()) {
+            this.stabilimentoRepository.save(stabilimento);
+            return "redirect:/owner/stabilimenti";
+        } else {
+            return "owner/formUpdateStabilimento.html"; 
+        }
+    }
+
+
 }

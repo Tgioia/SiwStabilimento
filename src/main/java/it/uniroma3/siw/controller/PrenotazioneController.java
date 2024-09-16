@@ -48,24 +48,24 @@ public class PrenotazioneController {
     @PostMapping("/prenotazione/new")
     public String createPrenotazione(@Valid @ModelAttribute("prenotazione") Prenotazione prenotazione,
                                      BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            return "formNewPrenotazione";
-        }
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
+        if (!bindingResult.hasErrors()) {
+        	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        	UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        	Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
 
-        User user = credentials.getUser();
-        prenotazione.setUser(user);
-        prenotazioneService.savePrenotazione(prenotazione);
-        Disponibilita disponibilita = disponibilitaService.findByStabilimentoAndData(prenotazione.getStabilimento(),prenotazione.getData()).get(0);
+        	User user = credentials.getUser();
+        	prenotazione.setUser(user);
+        	
+        	Disponibilita disponibilita = disponibilitaService.findByStabilimentoAndData(prenotazione.getStabilimento(),prenotazione.getData()).get(0);
 
-        if (disponibilita.getLettiniDisponibili() >= prenotazione.getnumeroLettini() && disponibilita.getOmbrelloniDisponibili() >= prenotazione.getnumeroOmbrelloni()) {
-            disponibilita.setLettiniDisponibili(disponibilita.getLettiniDisponibili() - prenotazione.getnumeroLettini());
-            disponibilita.setOmbrelloniDisponibili(disponibilita.getOmbrelloniDisponibili() - prenotazione.getnumeroOmbrelloni());
-
-            disponibilitaService.save(disponibilita);
-        }
+        	if (disponibilita.getLettiniDisponibili() >= prenotazione.getnumeroLettini() && disponibilita.getOmbrelloniDisponibili() >= prenotazione.getnumeroOmbrelloni()) {
+        		disponibilita.setLettiniDisponibili(disponibilita.getLettiniDisponibili() - prenotazione.getnumeroLettini());
+        		disponibilita.setOmbrelloniDisponibili(disponibilita.getOmbrelloniDisponibili() - prenotazione.getnumeroOmbrelloni());
+        		prenotazioneService.savePrenotazione(prenotazione);
+        		disponibilitaService.save(disponibilita);
+        	} else return "/nonDisponibili";
+    	}else return "formNewPrenotazione";
+    	
         return "redirect:/prenotazione/" + prenotazione.getId();
     }
     @GetMapping("/prenotazioni")
@@ -87,7 +87,7 @@ public class PrenotazioneController {
             model.addAttribute("prenotazione", prenotazione);
             return "prenotazione";
         } else {
-            return "redirect:/prenotazioni"; // Redirect se la prenotazione non esiste
+            return "redirect:/prenotazioni";
         }
     }
     

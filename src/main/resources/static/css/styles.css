@@ -1,50 +1,63 @@
-/* Stili generali per il sito */
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    color: #333;
-    background-color: #f9f9f9;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1;
+    color: #333; 
+    background-color: #f4f1e8; 
     margin: 0;
     padding: 0;
 }
 
 header {
-    background-color: #333;
+    background-color: #2a2a2a; /* Grigio scuro simile al logo */
     color: #fff;
-    padding: 1rem;
+    padding: 1rem 0;
     text-align: center;
+    position: relative;
 }
 
 header .logo {
     max-width: 150px;
+    display: inline-block;
 }
 
 nav ul {
     list-style: none;
     padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
 }
 
 nav ul li {
     display: inline;
-    margin: 0 0.5rem;
 }
 
 nav ul li a {
     color: #fff;
     text-decoration: none;
     font-weight: bold;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
 }
 
+nav ul li a:hover {
+    color: #ffb74d;
+}
+
+/* Titoli */
 h1, h2, h3 {
-    color: #333;
+    color: #2a2a2a; 
+    text-align: center;
+    margin-bottom: 1.5rem;
 }
 
 /* Stili per il form di registrazione Proprietario */
 form {
     background-color: #fff;
     padding: 2rem;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     max-width: 600px;
     margin: 2rem auto;
 }
@@ -52,76 +65,78 @@ form {
 form label {
     display: block;
     margin-bottom: 0.5rem;
+    font-weight: 500;
 }
 
 form input, 
 form select, 
 form textarea {
     width: 100%;
-    padding: 0.5rem;
+    padding: 0.75rem;
     margin-bottom: 1rem;
     border: 1px solid #ccc;
-    border-radius: 3px;
+    border-radius: 5px;
+    font-size: 1rem;
 }
 
 form button {
-    background-color: #333;
+    background-color: #1976d2; /* Blu del cielo/acqua */
     color: #fff;
     border: none;
     padding: 0.75rem 1.5rem;
-    border-radius: 3px;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
 }
 
 form button:hover {
-    background-color: #555;
+    background-color: #1565c0; /* Blu più scuro */
 }
 
 /* Stili per la tabella delle disponibilità */
 .availability-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
 }
 
 .availability-table th, 
 .availability-table td {
-    padding: 0.75rem;
+    padding: 1rem;
     text-align: center;
     border: 1px solid #ddd;
+    font-size: 1rem;
 }
 
 .availability-table thead {
-    background-color: #f4f4f4;
+    background-color: #e3f2fd; /* Azzurro chiaro */
 }
 
 .availability-table th {
-    background-color: #333;
+    background-color: #1976d2; /* Blu del cielo/acqua */
     color: #fff;
     font-weight: bold;
 }
 
 .availability-table tr:nth-child(even) {
-    background-color: #f9f9f9;
+    background-color: #f4f1e8; /* Beige dello sfondo */
 }
 
 .availability-table tr:hover {
-    background-color: #f1f1f1;
-}
-
-.availability-table td {
-    color: #333;
+    background-color: #fff9c4; /* Giallo pallido */
 }
 
 /* Stili per le pagine di successo e errore */
 .success-message, .error-message {
     background-color: #fff;
-    padding: 1rem;
+    padding: 1.5rem;
     border: 1px solid #ddd;
-    border-radius: 3px;
+    border-radius: 5px;
     max-width: 600px;
     margin: 2rem auto;
     text-align: center;
+    font-size: 1.1rem;
 }
 
 .success-message {
@@ -132,4 +147,20 @@ form button:hover {
 .error-message {
     border-color: #f44336;
     color: #f44336;
+}
+
+/* Aggiunta di responsive design */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    header {
+        padding: 1rem;
+    }
+
+    form {
+        padding: 1.5rem;
+    }
 }

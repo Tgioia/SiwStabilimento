@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stabilimenti</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/styles.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -25,9 +26,6 @@
                     <a class="nav-link" th:href="@{/login}">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/register">Registrati</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="/prenotazione/new">Prenota</a>
                 </li>
             </ul>
@@ -38,19 +36,36 @@
         <h1 class="display-4">Stabilimenti</h1>
         <div class="row">
             <div class="col-md-12">
-                <div class="list-group">
-                    <div th:each="stabilimento : ${stabilimenti}" class="list-group-item list-group-item-action">
-                        <h5 class="mb-1" th:text="${stabilimento.nome}"></h5>
-                        <p class="mb-1" th:text="${stabilimento.indirizzo}"></p>
-                        <a th:href="@{/stabilimento/{id}(id=${stabilimento.id})}" class="btn btn-info">Dettagli</a>
-                    </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Immagine</th>
+                                <th>Nome</th>
+                                <th>Indirizzo</th>
+                                <th>Dettagli</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="stabilimento : ${stabilimenti}">
+                                <td>
+                                    <img th:src="${stabilimento.imagePath}" alt="Immagine Stabilimento" class="img-fluid" style="max-width: 100px;" />
+                                </td>
+                                <td th:text="${stabilimento.nome}"></td>
+                                <td th:text="${stabilimento.indirizzo}"></td>
+                                <td>
+                                    <a th:href="@{/stabilimento/{id}(id=${stabilimento.id})}" class="btn btn-info">Dettagli</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 
     <footer class="bg-light text-center text-lg-start">
-            <p>© 2024 Gestione Prenotazioni Stabilimenti. Tutti i diritti riservati.</p>
+        <p>© 2024 Gestione Prenotazioni Stabilimenti. Tutti i diritti riservati.</p>
     </footer>
 
 </body>

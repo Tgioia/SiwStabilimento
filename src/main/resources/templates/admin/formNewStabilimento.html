@@ -24,7 +24,7 @@
 
     <h2>Nuovo Stabilimento</h2>
 
-    <form action="#" th:action="@{/admin/stabilimento}" th:object="${stabilimento}" method="post">
+    <form action="#" th:action="@{/admin/stabilimento}" th:object="${stabilimento}" method="post" enctype="multipart/form-data">
         <div>
             <label for="nome">Nome Stabilimento:</label>
             <input type="text" id="nome" th:field="*{nome}" placeholder="Inserisci il nome dello stabilimento" required>
@@ -51,6 +51,10 @@
                         th:text="${proprietario.name} + ' ' + ${proprietario.surname}"></option>
             </select>
         </div>
+		<div>
+			<label for="immagine">Carica Immagine</label>
+			<input type="file" id="immagine" name="immagine" required/>
+		</div>
 
         <div>
             <button type="submit">Crea Stabilimento</button>

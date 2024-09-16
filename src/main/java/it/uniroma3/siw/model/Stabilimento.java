@@ -22,19 +22,21 @@ public class Stabilimento {
     private String indirizzo;
     private int numeroOmbrelloni;
     private int numeroLettini;
-
+    private String imagePath;
     @ManyToOne
     private Proprietario proprietario;
 
-    @OneToMany(mappedBy = "stabilimento", cascade = CascadeType.ALL)
-    private List<Ombrellone> ombrelloni;
-
-    @OneToMany(mappedBy = "stabilimento", cascade = CascadeType.ALL)
-    private List<Lettino> lettini;
-    
     public List<Disponibilita> getDisponibilitaPerGiorno() {
 		return disponibilitaPerGiorno;
 	}
+    public String getImagePath() {
+		return imagePath;
+	}
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+
+	
 	public void setDisponibilitaPerGiorno(List<Disponibilita> disponibilitaPerGiorno) {
 		this.disponibilitaPerGiorno = disponibilitaPerGiorno;
 	}
@@ -88,21 +90,5 @@ public class Stabilimento {
 
     public void setProprietario(Proprietario proprietario) {
         this.proprietario = proprietario;
-    }
-
-    public List<Ombrellone> getOmbrelloni() {
-        return ombrelloni;
-    }
-
-    public void setOmbrelloni(List<Ombrellone> ombrelloni) {
-        this.ombrelloni = ombrelloni;
-    }
-
-    public List<Lettino> getLettini() {
-        return lettini;
-    }
-
-    public void setLettini(List<Lettino> lettini) {
-        this.lettini = lettini;
     }
 }

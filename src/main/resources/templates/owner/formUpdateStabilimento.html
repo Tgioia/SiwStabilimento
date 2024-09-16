@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifica Stabilimento</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>Modifica Stabilimento</h1>
+    </header>
+
+	<div class="alert-message">
+	    <p>Le modifiche alle disponibilità prenderanno effetto tra 30 giorni.</p>
+	</div>
+    <div class="container">
+        <form th:action="@{/owner/stabilimento/update}" th:object="${stabilimento}" method="post">
+		   
+		<div>
+    	        <label for="nome">Nome Stabilimento:</label>
+        	    <input type="text" id="nome" th:field="*{nome}" placeholder="Inserisci il nome dello stabilimento" required>
+   		</div>
+
+			        <div>
+			            <label for="indirizzo">Indirizzo:</label>
+			            <input type="text" id="indirizzo" th:field="*{indirizzo}" placeholder="Inserisci l'indirizzo" required>
+			        </div>
+					<div>
+			            <label for="numeroLettini">Numero Lettini:</label>
+			            <input type="number" id="numeroLettini" th:field="*{numeroLettini}" />
+			        </div>
+			        <div>
+			            <label for="numeroOmbrelloni">Numero Ombrelloni:</label>
+				        <input type="number" id="numeroOmbrelloni" th:field="*{numeroOmbrelloni}" />
+				    </div>
+					<input type="hidden" th:field="*{id}" />    
+		 			<input type="hidden" th:field="*{proprietario}" />
+					<input type="hidden" th:field="*{immaginePath}" />
+
+            <button type="submit" class="btn btn-primary">Salva Modifiche</button>
+            <a href="/admin/indexStabilimenti" class="btn btn-secondary">Annulla</a>
+        </form>
+		
+    </div>
+
+</body>
+
+</html>

@@ -17,12 +17,6 @@ public class Prenotazione {
 
     @ManyToOne
     private User user;
-
-    @ManyToOne
-    private Ombrellone ombrellone;
-
-    @ManyToOne
-    private Lettino lettino;
     
 	private int numeroOmbrelloni;
 
@@ -91,21 +85,5 @@ public class Prenotazione {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Ombrellone getOmbrellone() {
-        return ombrellone;
-    }
-
-    public void setOmbrellone(Ombrellone ombrellone) {
-        this.ombrellone = ombrellone;
-    }
-
-    public Lettino getLettino() {
-        return lettino;
-    }
-
-    public void setLettino(Lettino lettino) {
-        this.lettino = lettino;
     }
 }

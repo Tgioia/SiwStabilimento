@@ -37,6 +37,7 @@
                 <td th:text="${stabilimento.indirizzo}">Indirizzo</td>
                 <td>
                     <a th:href="@{'/stabilimento/' + ${stabilimento.id}}">Dettagli</a>
+					<a th:href="@{'/owner/formUpdateStabilimento/' + ${stabilimento.id}}">Modifica</a>
                 </td>
 				
             </tr>
