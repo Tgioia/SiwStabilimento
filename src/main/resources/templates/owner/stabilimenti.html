@@ -1,49 +1,68 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="it">
 <head>
-    <title>Elenco Stabilimenti</title>
-    <link rel="stylesheet" href="/css/styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stabilimenti</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
-
 <body>
-    <header>
-        <a href="/"><img src="/images/logo.png" alt="Gestione Stabilimenti Logo" class="logo"></a>
-        <h1>Gestione Stabilimenti</h1>
-        <nav>
-            <ul>
-                <li th:if="${#authentication.name != 'anonymousUser'}">
-                    <a th:href="@{/logout}">Logout</a>
-                </li>
-                <li th:unless="${#authentication.name != 'anonymousUser'}">
-                    <a th:href="@{/login}">Login</a>
-                </li>
-            </ul>
-        </nav>
+	<header>
+	     <a href="/"><img src="/images/logo.png" alt="Gestione Prenotazioni Logo" class="logo"></a>
+	     <h1>Gestione Prenotazioni</h1>
+	     <nav>
+	         <ul>
+	             <li th:if="${#authentication.name != 'anonymousUser'}">
+	                 <a th:href="@{/logout}">Logout</a>
+	             </li>
+	             <li th:unless="${#authentication.name != 'anonymousUser'}">
+	                 <a th:href="@{/login}">Login</a>
+	             </li>
+	         </ul>
+	     </nav>
+	 </header>
+
     </header>
 
-    <h2>I Miei Stabilimenti</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Indirizzo</th>
-                <th>Azioni</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="stabilimento : ${stabilimenti}">
-                <td th:text="${stabilimento.nome}">Nome</td>
-                <td th:text="${stabilimento.indirizzo}">Indirizzo</td>
-                <td>
-                    <a th:href="@{'/stabilimento/' + ${stabilimento.id}}">Dettagli</a>
-					<a th:href="@{'/owner/formUpdateStabilimento/' + ${stabilimento.id}}">Modifica</a>
-                </td>
-				
-            </tr>
-        </tbody>
-    </table>
-	<li><a href="/admin/formNewStabilimento">Crea Nuovo Stabilimento</a></li>
-</body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Elenco Stabilimenti</h2>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Immagine</th>
+                        <th>Nome</th>
+                        <th>Indirizzo</th>
+                        <th>Azioni</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="stabilimento : ${stabilimenti}">
+                        <td>
+                            <img th:src="${stabilimento.imagePath}" alt="Immagine Stabilimento" class="img-fluid" style="max-width: 100px;" />
+                        </td>
+                        <td th:text="${stabilimento.nome}"></td>
+                        <td th:text="${stabilimento.indirizzo}"></td>
+                        <td>
+                            <a th:href="@{/stabilimento/{id}(id=${stabilimento.id})}" class="btn btn-info">Dettagli</a>
+							<a th:href="@{'/owner/formUpdateStabilimento/' + ${stabilimento.id}}" class ="btn btn-info">Modifica</a>
+                        </td>
+						
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
+    <footer>
+        <div class="container">
+            <p class="mb-0">© 2024 Gestione Prenotazioni Stabilimenti. Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+
+</body>
 </html>

@@ -80,8 +80,6 @@ public class AuthenticationController {
                  @ModelAttribute("credentials") Credentials credentials,
                  BindingResult credentialsBindingResult,
                  Model model) {
-
-		// se user e credential hanno entrambi contenuti validi, memorizza User e the Credentials nel DB
         if(!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
             userService.saveUser(user);
             credentials.setUser(user);
@@ -126,6 +124,26 @@ public class AuthenticationController {
 	    }
 	    return "/admin/formNewProprietario";
 	}
-
+	@GetMapping(value="/owner/formUpdateCredentials")
+    public String showEditForm(Model model) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());       
+        model.addAttribute("credentials", credentials);
+        System.out.println("credentialsedit");
+        return "/owner/formUpdateCredentials"; 
+    }
+	@PostMapping("/credEdit")
+	public String updateCredentials(@Valid @ModelAttribute("credentials") Credentials credentials,
+	                                BindingResult result,
+	                                Model model) {
+		System.out.println("credentialsupdate");
+	    if (result.hasErrors()) {
+	        // Se ci sono errori, mostra di nuovo il form di modifica
+	        return "owner/formUpdateCredentials"; // Assicurati che il nome del template sia corretto
+	    }
+	    credentialsService.saveCredentials(credentials);
+	    return "redirect:/index"; // Redirect alla pagina di successo
+	}
 
 }

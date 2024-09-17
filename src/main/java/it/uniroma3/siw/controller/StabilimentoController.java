@@ -2,9 +2,11 @@ package it.uniroma3.siw.controller;
 
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Disponibilita;
+import it.uniroma3.siw.model.Prenotazione;
 import it.uniroma3.siw.model.Proprietario;
 import it.uniroma3.siw.model.Stabilimento;
 import it.uniroma3.siw.model.User;
+import it.uniroma3.siw.repository.PrenotazioneRepository;
 import it.uniroma3.siw.repository.StabilimentoRepository;
 import it.uniroma3.siw.repository.UserRepository;
 import it.uniroma3.siw.service.CredentialsService;
@@ -45,37 +47,37 @@ public class StabilimentoController {
     private UserService userService;
     @Autowired
     private DisponibilitaService disponibilitaService;
+    @Autowired
+    PrenotazioneRepository prenotazioneRepository;
 
     @Autowired
 	private StabilimentoRepository stabilimentoRepository;
 
     @GetMapping(value="/stabilimenti")
     public String listStabilimenti(Model model) {
-        model.addAttribute("stabilimenti", stabilimentoService.findAll());
-        return "stabilimenti";
-    }
-    @GetMapping(value="owner/stabilimenti")
-    public String listStabilimentiOwner(Model model) {
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
-
-        Proprietario proprietario = credentials.getProprietario();
-        model.addAttribute("stabilimenti", stabilimentoService.findAllByProprietario(proprietario));
-        return "/owner/stabilimenti";
-    }
-    @GetMapping("/admin/stabilimenti")
-    public String listStabilimentiForAdmin(Model model) {
+        System.out.println(" "+ credentials.getRole());
+    	if(credentials.getRole().equals(Credentials.OWNER_ROLE)) {
+    		Proprietario proprietario = credentials.getProprietario();
+    		model.addAttribute("stabilimenti", stabilimentoService.findAllByProprietario(proprietario));
+    		return "/owner/stabilimenti";
+    	} else if(credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
+    		model.addAttribute("stabilimenti", stabilimentoService.findAll());
+    		return "admin/stabilimenti";
+    	} else {    	
         model.addAttribute("stabilimenti", stabilimentoService.findAll());
-        return "admin/stabilimenti";
+        return "/stabilimenti";
+    	}
     }
+    
 
 
     @GetMapping("/stabilimento/{id}")
     public String viewStabilimento(@PathVariable("id") Long id, Model model) {
         Stabilimento stabilimento = stabilimentoService.findById(id).get();
         if (stabilimento != null) {
-            
             Collections.sort(stabilimento.getDisponibilitaPerGiorno(), new Comparator<Disponibilita>() {
                 @Override
                 public int compare(Disponibilita d1, Disponibilita d2) {
@@ -92,6 +94,9 @@ public class StabilimentoController {
     @GetMapping("/admin/stabilimento/delete/{id}")
     public String deleteStabilimento(@PathVariable("id") Long id) {
         Stabilimento stabilimento = this.stabilimentoRepository.findById(id).get();
+        for(Prenotazione prenotazione : prenotazioneRepository.findAllByStabilimento(stabilimento)) {
+        	prenotazioneRepository.delete(prenotazione);
+        }
         this.stabilimentoRepository.delete(stabilimento);
         return "redirect:/";
     }

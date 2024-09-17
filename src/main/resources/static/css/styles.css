@@ -60,6 +60,7 @@ form {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     max-width: 600px;
     margin: 2rem auto;
+	text-align: center;
 }
 
 form label {
@@ -71,7 +72,7 @@ form label {
 form input, 
 form select, 
 form textarea {
-    width: 100%;
+    width: 90%;
     padding: 0.75rem;
     margin-bottom: 1rem;
     border: 1px solid #ccc;
@@ -91,6 +92,27 @@ form button {
 }
 
 form button:hover {
+    background-color: #1565c0; /* Blu più scuro */
+}
+.btn-container {
+    display: flex;
+    justify-content: space-between; /* Spaziatura tra i due pulsanti */
+    gap: 10px; /* Aggiungi uno spazio tra i pulsanti */
+    margin-top: 20px; /* Aggiungi un margine per distanziare dal form */
+}
+.button-link {
+    display: inline-block;
+    background-color: #1976d2;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.button-link:hover {
     background-color: #1565c0; /* Blu più scuro */
 }
 

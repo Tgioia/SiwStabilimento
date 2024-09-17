@@ -49,14 +49,11 @@
             <span><input type="password" placeholder="password" required th:field="${credentials.password}" /></span>
             <span th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}" th:style="'color:red'"></span>
         </div>
-        <div>
-            <button type="submit">Registra</button>
-        </div>
+		<div class = "button-container">
+		    <span><button type="submit">Registrati</button></span>
+			<span><a th:href="@{/login}" class="button-link">Login</a></span>
+		</div>
     </form>
-
-    <div>
-        <a th:href="@{/login}" th:text="login">Login</a>
-    </div>
 </body>
 
 </html>

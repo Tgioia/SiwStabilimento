@@ -36,12 +36,11 @@ public class Stabilimento {
 		this.imagePath = imagePath;
 	}
 
-	
 	public void setDisponibilitaPerGiorno(List<Disponibilita> disponibilitaPerGiorno) {
 		this.disponibilitaPerGiorno = disponibilitaPerGiorno;
 	}
 
-	@OneToMany(mappedBy = "stabilimento", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "stabilimento", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Disponibilita> disponibilitaPerGiorno=new ArrayList<>();
     
     public Long getId() {

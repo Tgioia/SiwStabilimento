@@ -3,8 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Nuovo Proprietario</title>
+	<link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
+	<header>
+	     <a href="/"><img src="/images/logo.png" alt="Gestione Prenotazioni Logo" class="logo"></a>
+	     <h1>Gestione Prenotazioni</h1>
+	     <nav>
+	         <ul>
+	             <li th:if="${#authentication.name != 'anonymousUser'}">
+	                 <a th:href="@{/logout}">Logout</a>
+	             </li>
+	             <li th:unless="${#authentication.name != 'anonymousUser'}">
+	                 <a th:href="@{/login}">Login</a>
+	             </li>
+	         </ul>
+	     </nav>
+	 </header>
     <h2>Registrazione Nuovo Proprietario</h2>
     
     <form th:action="@{/admin/newProprietario}" method="post">

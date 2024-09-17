@@ -13,6 +13,7 @@ public class Prenotazione {
     private LocalDate data;
 
     @ManyToOne
+    @JoinColumn(name = "stabilimento_id", nullable = false)
     private Stabilimento stabilimento;
 
     @ManyToOne

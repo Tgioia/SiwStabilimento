@@ -9,12 +9,23 @@
 </head>
 
 <body>
-    <header>
-        <h1>Modifica Stabilimento</h1>
-    </header>
+	<header>
+	       <a href="/"><img src="/images/logo.png" alt="Gestione Stabilimenti Logo" class="logo"></a>
+	       <h1>Gestione Prenotazioni Stabilimenti</h1>
+	       <nav>
+	           <ul>
+	               <li th:if="${#authentication.name != 'anonymousUser'}">
+	                   <a th:href="@{/logout}">Logout</a>
+	               </li>
+	               <li th:unless="${#authentication.name != 'anonymousUser'}">
+	                   <a th:href="@{/login}">Login</a>
+	               </li>
+	           </ul>
+	       </nav>
+	   </header>
 
 	<div class="alert-message">
-	    <p>Le modifiche alle disponibilità prenderanno effetto tra 30 giorni.</p>
+	    <p>Le modifiche alle disponibilita' prenderanno effetto tra 30 giorni.</p>
 	</div>
     <div class="container">
         <form th:action="@{/owner/stabilimento/update}" th:object="${stabilimento}" method="post">
@@ -38,10 +49,9 @@
 				    </div>
 					<input type="hidden" th:field="*{id}" />    
 		 			<input type="hidden" th:field="*{proprietario}" />
-					<input type="hidden" th:field="*{immaginePath}" />
+					<input type="hidden" th:field="*{imagePath}" />
 
             <button type="submit" class="btn btn-primary">Salva Modifiche</button>
-            <a href="/admin/indexStabilimenti" class="btn btn-secondary">Annulla</a>
         </form>
 		
     </div>

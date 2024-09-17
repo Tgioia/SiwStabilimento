@@ -35,13 +35,13 @@
         <div>
             <span th:if="${param.error != null}">Username o password errati</span>
         </div>
-        <div>
+        <div class = "button-container">
             <span><button type="submit">Login</button></span>
-        </div>
+			<span><a th:href="@{/register}" class="button-link">Registrati</a></span>
+		</div>
     </form>
 
-    <div>
-        <a th:href="@{/register}" th:text="Registrati">Registrati</a>
-    </div>
+
+
 </body>
 </html>

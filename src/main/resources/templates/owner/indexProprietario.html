@@ -12,7 +12,7 @@
         <h1>Area Proprietario</h1>
         <nav>
             <ul>
-                <li><a href="/owner/stabilimenti">I Miei Stabilimenti</a></li>
+                <li><a href="/stabilimenti">I Miei Stabilimenti</a></li>
                 <li th:if="${#authentication.name != 'anonymousUser'}">
                     <a th:href="@{/logout}">Logout</a>
                 </li>
@@ -23,6 +23,7 @@
     <div>
         <h2>Benvenuto nella tua area personale</h2>
         <p>Gestisci i tuoi stabilimenti e le prenotazioni.</p>
+		<!--<li><a href="/owner/formUpdateCredentials">Cambia le credenziali</a></li>-->
     </div>
 </body>
 
