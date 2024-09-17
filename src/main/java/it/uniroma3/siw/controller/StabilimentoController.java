@@ -116,7 +116,7 @@ public class StabilimentoController {
         			byte[] bytes = file.getBytes();
         			Path path= Paths.get(UPLOAD_DIR + file.getOriginalFilename());
         			Files.write(path, bytes);
-        			stabilimento.setImagePath(UPLOAD_DIR + file.getOriginalFilename());
+        			stabilimento.setImagePath("/uploads/" + file.getOriginalFilename());
         			
         		} catch(IOException e) {
         			e.printStackTrace();
